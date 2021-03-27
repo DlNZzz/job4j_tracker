@@ -46,6 +46,13 @@ public class Item {
     private int id;
     private String name;
 
+    public Item() {
+    }
+
+    public Item(String name) {
+        this.name = name;
+    }
+
     public int getId() {
         return id;
     }
@@ -64,9 +71,6 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        return "Item{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }
