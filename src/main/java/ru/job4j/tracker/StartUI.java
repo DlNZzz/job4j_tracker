@@ -82,7 +82,6 @@ public class StartUI {
         System.out.println("6. Exit Program");
     }
 
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         Tracker tracker = new Tracker();
