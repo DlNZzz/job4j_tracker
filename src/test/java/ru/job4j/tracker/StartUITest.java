@@ -62,7 +62,7 @@ public class StartUITest {
         String res = "Menu." + ln + "0. Create" + ln + "1. Find items by name" + ln + "2. Exit" + ln + "Select: "
                 + ln + "==== Create a new Item ====" + ln + "Enter name: " + ln + "Menu." + ln + "0. Create"
                 + ln + "1. Find items by name" + ln + "2. Exit" + ln + "Select: " + ln + "==== Find items by name ===="
-                + ln + "Enter name: " + ln + "Menu." + ln + "0. Create" + ln + "1. Find items by name" + ln + "2. Exit"
+                + ln + "Enter name: " + ln + "Item{id=1, name='qwerty'}" + ln + "Menu." + ln + "0. Create" + ln + "1. Find items by name" + ln + "2. Exit"
                 + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
@@ -86,7 +86,7 @@ public class StartUITest {
         String res = "Menu." + ln + "0. Create" + ln + "1. Find item by Id" + ln + "2. Exit" + ln + "Select: "
                 + ln + "==== Create a new Item ====" + ln + "Enter name: " + ln + "Menu." + ln + "0. Create"
                 + ln + "1. Find item by Id" + ln + "2. Exit" + ln + "Select: " + ln + "==== Find item by Id ===="
-                + ln + "Enter ID: " + ln + "Menu." + ln + "0. Create" + ln + "1. Find item by Id" + ln + "2. Exit"
+                + ln + "Enter ID: " + ln + "Item{id=1, name='qwerty'}" + ln + "Menu." + ln + "0. Create" + ln + "1. Find item by Id" + ln + "2. Exit"
                 + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
