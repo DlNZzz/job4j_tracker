@@ -25,22 +25,20 @@ public class StartUITest {
     public void whenFindAllAction() {
         String ln = System.lineSeparator();
         Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("qwerty 123"));
         Input in = new StubInput(
-                new String[] {"0", "qwerty 123", "1", "2"},
+                new String[] {"0", "1"},
                 out
         );
-        Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(out),
                 new FindAllAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        String res = "Menu." + ln + "0. Create" + ln + "1. Show all items" + ln + "2. Exit" + ln + "Select: "
-                + ln + "==== Create a new Item ====" + ln + "Enter name: " + ln + "Menu." + ln + "0. Create"
-                + ln + "1. Show all items" + ln + "2. Exit" + ln + "Select: " + ln + "==== Show all items ===="
-                + ln + "Item{id=1, name='qwerty 123'}" + ln + "Menu." + ln + "0. Create" + ln + "1. Show all items"
-                + ln + "2. Exit" + ln + "Select: " + ln;
+        String res = "Menu." + ln + "0. Show all items" + ln + "1. Exit" + ln + "Select: "
+                + ln + "==== Show all items ====" + ln + "Item{id=1, name='qwerty 123'}" + ln + "Menu."
+                + ln + "0. Show all items" + ln + "1. Exit" + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
 
@@ -48,22 +46,20 @@ public class StartUITest {
     public void whenFindByNameAction() {
         String ln = System.lineSeparator();
         Output out = new StubOutput();
+        Tracker tracker = new Tracker();
+        tracker.add(new Item("qwerty"));
         Input in = new StubInput(
-                new String[] {"0", "qwerty", "1", "qwerty", "2"},
+                new String[] {"0", "qwerty", "1"},
                 out
         );
-        Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(out),
                 new FindByNameAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        String res = "Menu." + ln + "0. Create" + ln + "1. Find items by name" + ln + "2. Exit" + ln + "Select: "
-                + ln + "==== Create a new Item ====" + ln + "Enter name: " + ln + "Menu." + ln + "0. Create"
-                + ln + "1. Find items by name" + ln + "2. Exit" + ln + "Select: " + ln + "==== Find items by name ===="
-                + ln + "Enter name: " + ln + "Item{id=1, name='qwerty'}" + ln + "Menu." + ln + "0. Create" + ln + "1. Find items by name" + ln + "2. Exit"
-                + ln + "Select: " + ln;
+        String res = "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: "
+                + ln + "==== Find items by name ====" + ln + "Enter name: " + ln + "Item{id=1, name='qwerty'}"
+                + ln + "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
 
@@ -71,23 +67,21 @@ public class StartUITest {
     public void whenFindByIdAction() {
         String ln = System.lineSeparator();
         Output out = new StubOutput();
-        String id = "1";
+        Tracker tracker = new Tracker();
+        Item item = tracker.add(new Item("qwerty"));
+        String id = String.valueOf(item.getId());
         Input in = new StubInput(
-                new String[] {"0", "qwerty", "1", id, "2"},
+                new String[] {"0", id, "1"},
                 out
         );
-        Tracker tracker = new Tracker();
         UserAction[] actions = {
-                new CreateAction(out),
                 new FindByIdAction(out),
                 new ExitAction()
         };
         new StartUI(out).init(in, tracker, actions);
-        String res = "Menu." + ln + "0. Create" + ln + "1. Find item by Id" + ln + "2. Exit" + ln + "Select: "
-                + ln + "==== Create a new Item ====" + ln + "Enter name: " + ln + "Menu." + ln + "0. Create"
-                + ln + "1. Find item by Id" + ln + "2. Exit" + ln + "Select: " + ln + "==== Find item by Id ===="
-                + ln + "Enter ID: " + ln + "Item{id=1, name='qwerty'}" + ln + "Menu." + ln + "0. Create" + ln + "1. Find item by Id" + ln + "2. Exit"
-                + ln + "Select: " + ln;
+        String res = "Menu." + ln + "0. Find item by Id" + ln + "1. Exit" + ln + "Select: "
+                + ln + "==== Find item by Id ====" + ln + "Enter ID: " + ln + "Item{id=" + id + ", name='qwerty'}"
+                + ln + "Menu." + ln + "0. Find item by Id" + ln + "1. Exit" + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
 
