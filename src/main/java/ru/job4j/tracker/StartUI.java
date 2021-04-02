@@ -1,5 +1,9 @@
 package ru.job4j.tracker;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class StartUI {
     private final Output out;
 
@@ -7,24 +11,24 @@ public class StartUI {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, UserAction[] actions) {
+    public void init(Input input, Tracker tracker, List<UserAction> listAction) {
         boolean run = true;
         while (run) {
-            this.showMenu(actions);
+            this.showMenu(listAction);
             int select = input.askInt("Select: ");
-            if (select < 0 || select >= actions.length) {
-                out.println("Wrong input, you can select: 0 .. " + (actions.length - 1));
+            if (select < 0 || select >= listAction.size()) {
+                out.println("Wrong input, you can select: 0 .. " + (listAction.size() - 1));
                 continue;
             }
-            UserAction action = actions[select];
+            UserAction action = listAction.get(select);
             run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu(UserAction[] actions) {
+    private void showMenu(List<UserAction> listAction) {
         out.println("Menu.");
-        for (int index = 0; index < actions.length; index++) {
-            out.println(index + ". " + actions[index].name());
+        for (int index = 0; index < listAction.size(); index++) {
+            out.println(index + ". " + listAction.get(index).name());
         }
     }
 
@@ -41,6 +45,7 @@ public class StartUI {
                 new FindByIdAction(output),
                 new FindByNameAction(output)
         };
-        new StartUI(output).init(input, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(output).init(input, tracker, listAction);
     }
 }

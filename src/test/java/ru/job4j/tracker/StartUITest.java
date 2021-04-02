@@ -1,6 +1,10 @@
 package ru.job4j.tracker;
 
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -16,7 +20,8 @@ public class StartUITest {
         UserAction[] actions = {
                 new ExitAction()
         };
-        new StartUI(out).init(in, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(out).init(in, tracker, listAction);
         assertThat(out.toString(), is("Menu." + System.lineSeparator() + "0. Exit"
                 + System.lineSeparator() + "Select: " + System.lineSeparator()));
     }
@@ -35,7 +40,8 @@ public class StartUITest {
                 new FindAllAction(out),
                 new ExitAction()
         };
-        new StartUI(out).init(in, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(out).init(in, tracker, listAction);
         String res = "Menu." + ln + "0. Show all items" + ln + "1. Exit" + ln + "Select: "
                 + ln + "==== Show all items ====" + ln + item + ln + "Menu."
                 + ln + "0. Show all items" + ln + "1. Exit" + ln + "Select: " + ln;
@@ -56,7 +62,8 @@ public class StartUITest {
                 new FindByNameAction(out),
                 new ExitAction()
         };
-        new StartUI(out).init(in, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(out).init(in, tracker, listAction);
         String res = "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: "
                 + ln + "==== Find items by name ====" + ln + "Enter name: " + ln + item
                 + ln + "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: " + ln;
@@ -78,7 +85,8 @@ public class StartUITest {
                 new FindByIdAction(out),
                 new ExitAction()
         };
-        new StartUI(out).init(in, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(out).init(in, tracker, listAction);
         String res = "Menu." + ln + "0. Find item by Id" + ln + "1. Exit" + ln + "Select: "
                 + ln + "==== Find item by Id ====" + ln + "Enter ID: " + ln + item + ln + "Menu."
                 + ln + "0. Find item by Id" + ln + "1. Exit" + ln + "Select: " + ln;
@@ -96,7 +104,8 @@ public class StartUITest {
         UserAction[] actions = new UserAction[]{
                 new ExitAction()
         };
-        new StartUI(out).init(in, tracker, actions);
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(out).init(in, tracker, listAction);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
                 "Menu." + ln + "0. Exit" + ln + "Select: " + ln + "Wrong input, you can select: 0 .. 0"
