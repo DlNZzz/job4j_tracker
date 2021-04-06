@@ -13,21 +13,20 @@ public class BankService {
     }
 
     public void addAccount(String passport, Account account) {
-        User user = this.findByPassport(passport);
-        List<Account> list = users.get(user);
-        if (!list.contains(account)) {
-            list.add(account);
-            users.put(user, list);
+        User user = findByPassport(passport);
+        if (user != null) {
+            List<Account> list = users.get(user);
+            if (!list.contains(account)) {
+                list.add(account);
+            }
         }
     }
 
     public User findByPassport(String passport) {
-        User user;
-        for (Map.Entry<User, List<Account>> entry : users.entrySet()) {
-            user = entry.getKey();
-            String pass = user.getPassport();
+        for (User key : users.keySet()) {
+            String pass = key.getPassport();
             if (pass.equals(passport)) {
-                return user;
+                return key;
             }
         }
         return null;
@@ -51,10 +50,13 @@ public class BankService {
                                  String destPassport, String destRequisite, double amount) {
         Account srcAccount = findByRequisite(srcPassport, srcRequisite);
         Account destAccount = findByRequisite(destPassport, destRequisite);
-        double temp = srcAccount.getBalance();
-        srcAccount.setBalance(temp - amount);
-        destAccount.setBalance(destAccount.getBalance() + amount);
-        boolean rsl = true;
+        boolean rsl = false;
+        if (srcAccount != null && destAccount != null && srcAccount.getBalance() >= amount) {
+            double temp = srcAccount.getBalance();
+            srcAccount.setBalance(temp - amount);
+            destAccount.setBalance(destAccount.getBalance() + amount);
+            rsl = true;
+        }
         return rsl;
     }
 
