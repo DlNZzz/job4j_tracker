@@ -9,7 +9,9 @@ public class StringCompare implements Comparator<String> {
         char[] charsRight = right.toCharArray();
         int rsl = 0;
         for (int i = 0; i < Math.min(charsLeft.length, charsRight.length); i++) {
-            if ((rsl = Character.compare(charsLeft[i], charsRight[i])) != 0) {
+            rsl = Character.compare(charsLeft[i], charsRight[i]);
+            if (rsl != 0) {
+                rsl = Character.compare(charsLeft[i], charsRight[i]);
                 break;
             }
         }

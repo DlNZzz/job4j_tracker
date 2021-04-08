@@ -66,7 +66,8 @@ public class StartUITest {
         new StartUI(out).init(in, tracker, listAction);
         String res = "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: "
                 + ln + "==== Find items by name ====" + ln + "Enter name: " + ln + item
-                + ln + "Menu." + ln + "0. Find items by name" + ln + "1. Exit" + ln + "Select: " + ln;
+                + ln + "Menu." + ln + "0. Find items by name" + ln + "1. Exit"
+                + ln + "Select: " + ln;
         assertThat(out.toString(), is(res));
     }
 
@@ -108,7 +109,8 @@ public class StartUITest {
         new StartUI(out).init(in, tracker, listAction);
         String ln = System.lineSeparator();
         assertThat(out.toString(), is(
-                "Menu." + ln + "0. Exit" + ln + "Select: " + ln + "Wrong input, you can select: 0 .. 0"
+                "Menu." + ln + "0. Exit" + ln + "Select: "
+                        + ln + "Wrong input, you can select: 0 .. 0"
                         + ln + "Menu." + ln + "0. Exit" + ln + "Select: " + ln
                 )
         );
