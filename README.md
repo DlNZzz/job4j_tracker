@@ -1,4 +1,4 @@
 # job4j_tracker
 
-[![Build Status](https://travis-ci.org/DlNZzz/job4j_tracker.svg?branch=master)](https://travis-ci.org/DlNZzz/job4j_tracker)
+[![Build Status](https://travis-ci.org/DlNZzz/job4j_tracker.svg?branch=master)](https://travis-ci.org/DlNZzz/job4j_tracker) <br><br>
 [![codecov](https://codecov.io/gh/DlNZzz/job4j_tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/DlNZzz/job4j_tracker)
