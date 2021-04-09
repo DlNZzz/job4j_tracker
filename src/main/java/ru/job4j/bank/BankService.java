@@ -87,14 +87,17 @@ public class BankService {
 
     /**
      * Метод для перечисления денег с одного счёта на другой счёт.
-     * Используя паспорт и реквезит находит счет с помощью метода findByRequisite(String passport, String requisite).
-     * Если счета существуют и счет списания больше или равен amount производится перечисление средств.
+     * Используя паспорт и реквезит находит счет с помощью метода
+     * findByRequisite(String passport, String requisite).
+     * Если счета существуют и счет списания больше или
+     * равен amount производится перечисление средств.
      * @param srcPassport пасспорт пользователя
      * @param srcRequisite реквезиты пользователя со счета которого переводят
      * @param destPassport пасспорт пользователя
      * @param destRequisite реквезиты пользователя на счет которого переводят
-     * @param amount
-     * @return Вернет true. Если счёт не найден или не хватает денег на счёте с которого переводят, то вернет false.
+     * @param amount сумма перевода
+     * @return Вернет true. Если счёт не найден или
+     * не хватает денег на счёте с которого переводят, то вернет false.
      */
     public boolean transferMoney(String srcPassport, String srcRequisite,
                                  String destPassport, String destRequisite, double amount) {
@@ -112,7 +115,7 @@ public class BankService {
 
     /**
      * Просто метод main
-     * @param args
+     * @param args массив параметров
      */
     public static void main(String[] args) {
         User user = new User("3434", "Petr Arsentev");
