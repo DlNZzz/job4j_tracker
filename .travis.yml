@@ -18,6 +18,7 @@ notifications:
       - kostan-82@yandex.ru
     on_success: never # default: change
     on_failure: always # default: always
+
 env:
   global:
     - CODECOV_TOKEN="dcb28bdb-66df-43b4-8f4c-11c1fcae1101"
