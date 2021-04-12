@@ -26,10 +26,4 @@ public class Article {
         }
         return count == 0;
     }
-
-    public static void main(String[] args) {
-        System.out.println("123456".substring(0, 4));
-        System.out.println('а' + 0);
-        System.out.println('я' + 0);
-    }
 }
