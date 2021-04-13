@@ -6,24 +6,15 @@ import java.util.Set;
 
 public class Article {
     public static boolean generateBy(String origin, String line) {
-        Set<String> set = new HashSet<>(Arrays.asList(origin.split(" ")));
-        int count = line.split(" ").length;
-        for (String wordL : line.split(" ")) {
-            for (String word : set) {
-                char symbol = word.substring(word.length() - 1).charAt(0);
-                if (!(symbol >= 'а') || !(symbol <= 'я')) {
-                    if (word.substring(0, word.length() - 1).equals(wordL)) {
-                        count--;
-                        break;
-                    }
-                } else {
-                    if (word.equals(wordL)) {
-                        count--;
-                        break;
-                    }
-                }
+        boolean rsl = true;
+        String[] originText = origin.replaceAll("\\p{P}", "").split(" ");
+        String[] lineText = line.replaceAll("\\p{P}", "").split(" ");
+        Set<String> check = new HashSet<>(Arrays.asList(originText));
+        for (String word : lineText) {
+            if (!check.contains(word)) {
+                return false;
             }
         }
-        return count == 0;
+        return rsl;
     }
 }
