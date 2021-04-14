@@ -1,29 +1,19 @@
 package ru.job4j.collection;
 
-import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class DepDescComp implements Comparator<String> {
     @Override
     public int compare(String o1, String o2) {
-        /*
-        ArrayList<String> list = (ArrayList<String>) fillGaps(orgs);
-        Set<String> tmp = new LinkedHashSet<>();
-        for (int i = 0; i < list.size() - 1; i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                if (list.get(i).compareTo(list.get(j)) > 0) {
-                    String temp = list.get(i);
-                    list.set(i, list.get(j));
-                    list.add(temp);
-                }
+        int o1Length = o1.split("/").length;
+        int o2Length = o2.split("/").length;
+        String[] o1Array = o1.split("/");
+        String[] o2Array = o2.split("/");
+        for (int i = 0; i < Math.min(o1Length, o2Length); i++) {
+            if (o1Array[i].compareTo(o2Array[i]) != 0) {
+                return o1Array[i].compareTo(o2Array[i]);
             }
         }
-        for (String s : list) {
-            tmp.add(s);
-        }*/
-
-        return 0;
+        return o1Length > o2Length ? 1 : -1;
     }
 }
