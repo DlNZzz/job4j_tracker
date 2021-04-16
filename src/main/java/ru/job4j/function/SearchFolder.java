@@ -15,8 +15,7 @@ public class SearchFolder {
         for (Folder f : list) {
             if (searchFolder.check(str -> str.contains("bug"), f.getName()) && pred.test(f)) {
                 rsl.add(f);
-            }
-            if (searchFolder.check(i -> Integer.parseInt(i) > 100,
+            } else if (searchFolder.check(i -> Integer.parseInt(i) > 100,
                     String.valueOf(f.getSize())) && pred.test(f)) {
                 rsl.add(f);
             }
