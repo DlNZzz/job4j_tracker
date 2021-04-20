@@ -16,15 +16,15 @@ public class DiapasonTest {
 
     @Test
     public void whenLinearFunctionThenLinearResults2() {
-        List<Double> result = new Diapason().diapason(0, 1, x -> x);
+        List<Double> result = new Diapason().diapason(0, 1, x -> Math.pow(x, 2));
         List<Double> expected = Arrays.asList(0D);
         assertThat(result, is(expected));
     }
 
     @Test
     public void whenLinearFunctionThenLinearResults3() {
-        List<Double> result = new Diapason().diapason(0, 4, x -> x * x);
-        List<Double> expected = Arrays.asList(0D, 1D, 4D, 9D);
+        List<Double> result = new Diapason().diapason(0, 4, x -> Math.pow(2, x));
+        List<Double> expected = Arrays.asList(1D, 2D, 4D, 8D);
         assertThat(result, is(expected));
     }
 }
