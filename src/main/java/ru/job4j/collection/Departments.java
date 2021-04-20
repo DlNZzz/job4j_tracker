@@ -31,12 +31,10 @@ public class Departments {
     }
 
     public static void sortAsc(List<String> orgs) {
-        List<String> list = fillGaps(orgs);
-        Collections.sort(list);
+        Collections.sort(orgs);
     }
 
     public static void sortDesc(List<String> orgs) {
-        ArrayList<String> list = (ArrayList<String>) fillGaps(orgs);
-        Collections.sort(list, new DepDescComp());
+        Collections.sort(orgs, new DepDescComp());
     }
 }
