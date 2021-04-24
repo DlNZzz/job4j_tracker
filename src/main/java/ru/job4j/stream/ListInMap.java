@@ -14,7 +14,8 @@ public class ListInMap {
                         Collectors.toMap(
                                 Student::getSurname,
                                 e -> e,
-                                (s, e) -> s)
+                                (s, e) -> s
+                        )
                 );
     }
 }
