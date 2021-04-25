@@ -12,7 +12,7 @@ public class Profiles {
         return profiles
                 .stream()
                 .map(Profile::getAddress)
-                .sorted()
+                .sorted((h1, h2) -> h1.getCity().compareTo(h2.getCity()))
                 .distinct()
                 .collect(Collectors.toList());
     }

@@ -21,18 +21,21 @@ public class ProfilesTest {
 
     @Test
     public void whenCollectClassA() {
+        Address address = new Address("city", "street", 10, 22);
+        Address address2 = new Address("city3", "street3", 102, 242);
+        Address address3 = new Address("city2", "street2", 101, 232);
         List<Profile> students = List.of(
-                new Profile(new Address("city", "street", 10, 22)),
-                new Profile(new Address("city3", "street3", 102, 242)),
-                new Profile(new Address("city2", "street2", 101, 232)),
+                new Profile(address),
+                new Profile(address2),
+                new Profile(address3),
                 new Profile(new Address("city", "street", 10, 22))
         );
         Profiles profiles = new Profiles();
         List<Address> rsl = profiles.collect(students);
         List<Address> expected = new ArrayList<>();
-        expected.add(new Address("city", "street", 10, 22));
-        expected.add(new Address("city2", "street2", 101, 232));
-        expected.add(new Address("city3", "street3", 102, 242));
+        expected.add(address);
+        expected.add(address3);
+        expected.add(address2);
         assertThat(rsl, is(expected));
     }
 }

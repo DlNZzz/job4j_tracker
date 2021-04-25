@@ -16,6 +16,10 @@ public class Address implements Comparator<Address> {
         this.apartment = apartment;
     }
 
+    public String getCity() {
+        return city;
+    }
+
     @Override
     public int compare(Address o1, Address o2) {
         return o1.city.compareTo(o2.city);
