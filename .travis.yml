@@ -15,7 +15,7 @@ after_success:
 notifications:
   email:
     recipients:
-      - kostan-82@yandex.ru
+      - BakhmutskyAN@mpei.ru
     on_success: never # default: change
     on_failure: always # default: always
 env:
