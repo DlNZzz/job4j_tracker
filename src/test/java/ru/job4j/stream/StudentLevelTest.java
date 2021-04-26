@@ -13,7 +13,7 @@ public class StudentLevelTest {
     @Test
     public void whenSorted() {
         List<Student2> input = new ArrayList<>();
-        input.add(new Student2("Masha", " sd", 28));
+        input.add(new Student2("Masha", 28));
         input.add(new Student2("Pety", 128));
         List<Student2> expected = List.of(
                 new Student2("Pety", 128),
