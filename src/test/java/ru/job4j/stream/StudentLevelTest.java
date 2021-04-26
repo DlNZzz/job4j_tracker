@@ -25,7 +25,7 @@ public class StudentLevelTest {
     @Test
     public void whenOnlyNull() {
         List<Student2> input = new ArrayList<>();
-        input.add( null);
+        input.add(null);
         List<Student2> expected = List.of();
         assertThat(StudentLevel.levelOf(input, 100), is(expected));
     }
@@ -33,9 +33,9 @@ public class StudentLevelTest {
     @Test
     public void whenHasNull() {
         List<Student2> input = new ArrayList<>();
-        input.add( null);
-        input.add(new Student2("Pety",28));
-        List<Student2> expected = List.of(new Student2("Pety",28));
+        input.add(null);
+        input.add(new Student2("Pety", 28));
+        List<Student2> expected = List.of(new Student2("Pety", 28));
         assertThat(StudentLevel.levelOf(input, 10), is(expected));
     }
 }
