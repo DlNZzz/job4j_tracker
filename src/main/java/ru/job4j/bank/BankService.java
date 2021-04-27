@@ -68,9 +68,6 @@ public class BankService {
      */
     public Optional<Account> findByRequisite(String passport, String requisite) {
         Optional<User> user = this.findByPassport(passport);
-        if (user.isEmpty()) {
-            return null;
-        }
         return user
                 .flatMap(value -> users
                 .get(value)
