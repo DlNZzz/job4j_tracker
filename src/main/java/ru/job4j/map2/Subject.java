@@ -1,9 +1,10 @@
-package ru.job4j.map;
+package ru.job4j.map2;
 
 import java.util.Objects;
 
 public class Subject {
     private String name;
+
     private int score;
 
     public Subject(String name, int score) {
@@ -15,16 +16,8 @@ public class Subject {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getScore() {
         return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
     }
 
     @Override
@@ -42,13 +35,5 @@ public class Subject {
     @Override
     public int hashCode() {
         return Objects.hash(name);
-    }
-
-    @Override
-    public String toString() {
-        return "Subject{"
-                + "name='" + name + '\''
-                + ", score=" + score
-                + '}';
     }
 }
