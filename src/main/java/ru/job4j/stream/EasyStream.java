@@ -8,8 +8,7 @@ import java.util.stream.Stream.Builder;
 
 public class EasyStream {
     public static EasyStream of(List<Integer> source) {
-        return (EasyStream) Stream.of(source);
-        //throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public EasyStream map(Function<Integer, Integer> fun) {
