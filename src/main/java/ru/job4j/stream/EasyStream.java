@@ -38,6 +38,6 @@ public class EasyStream {
     }
 
     public List<Integer> collect() {
-        return new LinkedList<>(list);
+        return new ArrayList<>(list);
     }
 }
