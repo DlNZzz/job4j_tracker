@@ -1,9 +1,10 @@
 package ru.job4j.stream;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 public class EasyStream {
 
@@ -18,18 +19,25 @@ public class EasyStream {
     }
 
     public EasyStream map(Function<Integer, Integer> fun) {
-        return new EasyStream(list.stream()
-                .map(fun)
-                .collect(Collectors.toList()));
+        List<Integer> list2 = new ArrayList<>();
+        for (Integer number : list) {
+            number = fun.apply(number);
+            list2.add(number);
+        }
+        return new EasyStream(list2);
     }
 
     public EasyStream filter(Predicate<Integer> fun) {
-        return new EasyStream(list.stream()
-                .filter(fun)
-                .collect(Collectors.toList()));
+        List<Integer> list2 = new ArrayList<>();
+        for (Integer number : list) {
+            if (fun.test(number)) {
+                list2.add(number);
+            }
+        }
+        return new EasyStream(list2);
     }
 
     public List<Integer> collect() {
-        return list;
+        return new LinkedList<>(list);
     }
 }
