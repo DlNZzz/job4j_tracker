@@ -1,43 +1,50 @@
 package ru.job4j.tracker;
 
-import java.util.Scanner;
+import java.util.Arrays;
+import java.util.List;
 
 public class StartUI {
+    private final Output out;
 
-    public void init(Scanner scanner, Tracker tracker) {
+    public StartUI(Output out) {
+        this.out = out;
+    }
+
+    public void init(Input input, Tracker tracker, List<UserAction> listAction) {
         boolean run = true;
         while (run) {
-            showMenu();
-            System.out.print("Select: ");
-            int select = Integer.parseInt(scanner.nextLine());
-            if (select == 0) {
-                System.out.println("=== Create a new Item ====");
-                System.out.print("Enter name: ");
-                String name = scanner.nextLine();
-                Item item = new Item(name);
-                tracker.add(item);
-                System.out.println("Добавленная заявка: " + item);
-            } else if (select == 6) {
-                run = false;
+            this.showMenu(listAction);
+            int select = input.askInt("Select: ");
+            if (select < 0 || select >= listAction.size()) {
+                out.println("Wrong input, you can select: 0 .. " + (listAction.size() - 1));
+                continue;
             }
+            UserAction action = listAction.get(select);
+            run = action.execute(input, tracker);
         }
     }
 
-    private void showMenu() {
-        String[] menu = {
-                "Add new Item", "Show all items", "Edit item",
-                "Delete item", "Find item by id", "Find items by name",
-                "Exit Program"
-        };
-        System.out.println("Menu:");
-        for (int i = 0; i < menu.length; i++) {
-            System.out.println(i + ". " + menu[i]);
+    private void showMenu(List<UserAction> listAction) {
+        out.println("Menu.");
+        for (int index = 0; index < listAction.size(); index++) {
+            out.println(index + ". " + listAction.get(index).name());
         }
     }
 
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        Output output = new ConsoleOutput();
+        Input input = new ValidateInput(output, new ConsoleInput());
         Tracker tracker = new Tracker();
-        new StartUI().init(scanner, tracker);
+        UserAction[] actions = {
+                new ExitAction(),
+                new CreateAction(output),
+                new FindAllAction(output),
+                new ReplaceAction(output),
+                new DeleteAction(output),
+                new FindByIdAction(output),
+                new FindByNameAction(output)
+        };
+        List<UserAction> listAction = Arrays.asList(actions);
+        new StartUI(output).init(input, tracker, listAction);
     }
 }
