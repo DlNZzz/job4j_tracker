@@ -4,13 +4,17 @@ import java.util.Arrays;
 import java.util.List;
 
 public class StartUI {
-    private final Output out;
+    private Output out;
+
+    public StartUI() {
+
+    }
 
     public StartUI(Output out) {
         this.out = out;
     }
 
-    public void init(Input input, Tracker tracker, List<UserAction> listAction) {
+    public void init(Input input, Store memTracker, List<UserAction> listAction) {
         boolean run = true;
         while (run) {
             this.showMenu(listAction);
@@ -20,7 +24,7 @@ public class StartUI {
                 continue;
             }
             UserAction action = listAction.get(select);
-            run = action.execute(input, tracker);
+            run = action.execute(input, memTracker);
         }
     }
 
@@ -32,19 +36,24 @@ public class StartUI {
     }
 
     public static void main(String[] args) {
+        Input input = new ValidateInput(
+                new ConsoleInput()
+        );
         Output output = new ConsoleOutput();
-        Input input = new ValidateInput(output, new ConsoleInput());
-        Tracker tracker = new Tracker();
-        UserAction[] actions = {
-                new ExitAction(),
-                new CreateAction(output),
-                new FindAllAction(output),
-                new ReplaceAction(output),
-                new DeleteAction(output),
-                new FindByIdAction(output),
-                new FindByNameAction(output)
-        };
-        List<UserAction> listAction = Arrays.asList(actions);
-        new StartUI(output).init(input, tracker, listAction);
+        try (Store tracker = new SqlTracker()) {
+            tracker.init();
+            List<UserAction> actions = List.of(
+                    new CreateAction(output),
+                    new ReplaceAction(output),
+                    new DeleteAction(output),
+                    new FindAllAction(output),
+                    new FindByIdAction(output),
+                    new FindByNameAction(output),
+                    new ExitAction()
+            );
+            new StartUI().init(input, tracker, actions);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
