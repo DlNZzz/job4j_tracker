@@ -10,6 +10,7 @@ public class ValidateInput implements Input {
     }
 
     public ValidateInput(ConsoleInput consoleInput) {
+        in = consoleInput;
     }
 
     @Override

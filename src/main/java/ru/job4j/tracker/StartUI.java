@@ -7,7 +7,7 @@ public class StartUI {
     private Output out;
 
     public StartUI() {
-
+        out = new ConsoleOutput();
     }
 
     public StartUI(Output out) {

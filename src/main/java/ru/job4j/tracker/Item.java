@@ -38,6 +38,15 @@ public class Item {
         this.name = name;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public Item setCreated(LocalDateTime created) {
+        this.created = created;
+        return this;
+    }
+
     @Override
     public String toString() {
         return String.format("id: %s, name: %s, created: %s", id, name, FORMATTER.format(created));
