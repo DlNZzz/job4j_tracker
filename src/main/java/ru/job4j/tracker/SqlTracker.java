@@ -61,7 +61,8 @@ public class SqlTracker implements Store {
         String name = item.getName();
         LocalDateTime localDateTime = item.getCreated();
         Timestamp timestamp = Timestamp.valueOf(localDateTime);
-        try (PreparedStatement statement = cn.prepareStatement("update item set name = ?, created = ? where id = ?;")) {
+        try (PreparedStatement statement =
+                     cn.prepareStatement("update item set name = ?, created = ? where id = ?;")) {
             statement.setString(1, name);
             statement.setTimestamp(2, timestamp);
             statement.setInt(3, id);
