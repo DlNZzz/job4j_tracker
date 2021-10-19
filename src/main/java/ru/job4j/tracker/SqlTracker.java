@@ -2,7 +2,6 @@ package ru.job4j.tracker;
 
 import java.io.InputStream;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -36,13 +35,11 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        long millis = System.currentTimeMillis();
-        Timestamp timestamp = new Timestamp(millis);
         try (PreparedStatement statement = cn.prepareStatement(
                 "insert into item(name, created) values (?, ?);",
                 Statement.RETURN_GENERATED_KEYS)) {
             statement.setString(1, item.getName());
-            statement.setTimestamp(2, timestamp);
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.execute();
             try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
@@ -58,13 +55,10 @@ public class SqlTracker implements Store {
     @Override
     public boolean replace(int id, Item item) {
         boolean result = false;
-        String name = item.getName();
-        LocalDateTime localDateTime = item.getCreated();
-        Timestamp timestamp = Timestamp.valueOf(localDateTime);
         try (PreparedStatement statement =
                      cn.prepareStatement("update item set name = ?, created = ? where id = ?;")) {
-            statement.setString(1, name);
-            statement.setTimestamp(2, timestamp);
+            statement.setString(1, item.getName());
+            statement.setTimestamp(2, Timestamp.valueOf(item.getCreated()));
             statement.setInt(3, id);
             result = statement.executeUpdate() == 1;
         } catch (SQLException throwables) {
@@ -105,15 +99,40 @@ public class SqlTracker implements Store {
 
     @Override
     public List<Item> findByName(String key) {
-        List<Item> list = findAll();
-        list.removeIf(i -> !i.getName().equals(key));
+        List<Item> list = new LinkedList<>();
+        try (PreparedStatement preparedStatement =
+                     cn.prepareStatement("select * from item where name like ?;")) {
+            preparedStatement.setString(1, key);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Item item = new Item(resultSet.getString("name"));
+                    item.setId(resultSet.getInt("id"));
+                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                    list.add(item);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return list;
     }
 
     @Override
     public Item findById(int id) {
-        List<Item> list = findAll();
-        list.removeIf(i -> i.getId() != id);
-        return list.get(0);
+        Item item = null;
+        try (PreparedStatement preparedStatement =
+                     cn.prepareStatement("select * from item where id = ?;")) {
+            preparedStatement.setInt(1, id);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    item = new Item(resultSet.getString("name"));
+                    item.setId(resultSet.getInt("id"));
+                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return item;
     }
 }
