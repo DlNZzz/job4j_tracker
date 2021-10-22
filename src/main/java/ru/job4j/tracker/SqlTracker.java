@@ -92,10 +92,7 @@ public class SqlTracker implements Store {
         try (PreparedStatement statement = cn.prepareStatement("select * from item;")) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    Item item = new Item(resultSet.getString("name"));
-                    item.setId(resultSet.getInt("id"));
-                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
-                    list.add(item);
+                    list.add(createItem(resultSet));
                 }
             }
         } catch (SQLException throwables) {
@@ -112,10 +109,7 @@ public class SqlTracker implements Store {
             preparedStatement.setString(1, key);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    Item item = new Item(resultSet.getString("name"));
-                    item.setId(resultSet.getInt("id"));
-                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
-                    list.add(item);
+                    list.add(createItem(resultSet));
                 }
             }
         } catch (SQLException throwables) {
@@ -132,11 +126,21 @@ public class SqlTracker implements Store {
             preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    item = new Item(resultSet.getString("name"));
-                    item.setId(resultSet.getInt("id"));
-                    item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
+                    item = createItem(resultSet);
                 }
             }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return item;
+    }
+
+    public Item createItem(ResultSet resultSet) {
+        Item item = null;
+        try {
+            item = new Item(resultSet.getString("name"));
+            item.setId(resultSet.getInt("id"));
+            item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
