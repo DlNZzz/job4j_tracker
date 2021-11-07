@@ -1,6 +1,5 @@
 package ru.job4j.tracker;
 
-import java.util.Arrays;
 import java.util.List;
 
 public class StartUI {
@@ -57,3 +56,6 @@ public class StartUI {
         }
     }
 }
+
+//jstat -gc 4216 1s 10
+//jmap -histo 4216
