@@ -56,6 +56,3 @@ public class StartUI {
         }
     }
 }
-
-//jstat -gc 4216 1s 10
-//jmap -histo 4216
