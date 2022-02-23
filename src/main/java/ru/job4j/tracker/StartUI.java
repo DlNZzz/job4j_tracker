@@ -36,6 +36,7 @@ public class StartUI {
 
     public static void main(String[] args) {
         Input input = new ValidateInput(
+                /*new ConsoleOutput(),*/
                 new ConsoleInput()
         );
         Output output = new ConsoleOutput();
