@@ -15,6 +15,7 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String description;
 
     private LocalDateTime created = LocalDateTime.now();
 
@@ -23,6 +24,15 @@ public class Item {
 
     public Item(String name) {
         this.name = name;
+        this.description = "";
+        long millis = System.currentTimeMillis();
+        Timestamp timestamp = new Timestamp(millis);
+        created = timestamp.toLocalDateTime();
+    }
+
+    public Item(String name, String description) {
+        this.name = name;
+        this.description = description;
         long millis = System.currentTimeMillis();
         Timestamp timestamp = new Timestamp(millis);
         created = timestamp.toLocalDateTime();

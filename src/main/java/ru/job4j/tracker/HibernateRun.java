@@ -13,16 +13,19 @@ public class HibernateRun {
         final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
                 .configure().build();
         try {
-            SessionFactory sf = new MetadataSources(registry).buildMetadata()
+            SessionFactory sf = new MetadataSources(registry)
+                    .buildMetadata()
                     .buildSessionFactory();
-            Item item = create(new Item("Learn Hibernate"), sf);
-            System.out.println(item);
-            item.setName("Learn Hibernate 5.");
-            update(item, sf);
-            System.out.println(item);
-            Item rsl = findById(item.getId(), sf);
-            System.out.println(rsl);
-            delete(rsl.getId(), sf);
+            Session session = sf.openSession();
+            session.beginTransaction();
+            Item item = new Item("Learn Hibernate", "Qwe");
+            Item item2 = new Item("Learn Hibernate", "Qwe2");
+            Item item3 = new Item("Learn Hibernate", "Qwe3");
+            session.save(item);
+            session.save(item2);
+            session.save(item3);
+            session.getTransaction().commit();
+            session.close();
             List<Item> list = findAll(sf);
             for (Item it : list) {
                 System.out.println(it);
@@ -54,7 +57,7 @@ public class HibernateRun {
     public static void delete(Integer id, SessionFactory sf) {
         Session session = sf.openSession();
         session.beginTransaction();
-        Item item = new Item(null);
+        Item item = new Item(null, null);
         item.setId(id);
         session.delete(item);
         session.getTransaction().commit();
