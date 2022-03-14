@@ -82,7 +82,7 @@ public class HbmTracker implements Store, AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         StandardServiceRegistryBuilder.destroy(registry);
     }
 }
