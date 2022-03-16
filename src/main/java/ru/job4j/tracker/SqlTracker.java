@@ -138,7 +138,7 @@ public class SqlTracker implements Store {
     public Item createItem(ResultSet resultSet) {
         Item item = null;
         try {
-            item = new Item(resultSet.getString("name"), resultSet.getString("description"));
+            item = new Item(resultSet.getString("name"));
             item.setId(resultSet.getInt("id"));
             item.setCreated(resultSet.getTimestamp("created").toLocalDateTime());
         } catch (SQLException throwables) {
