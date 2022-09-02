@@ -6,6 +6,7 @@ import lombok.*;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @RequiredArgsConstructor
 public class Item {
+
     @NonNull
     @Getter
     @Setter
