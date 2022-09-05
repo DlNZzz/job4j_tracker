@@ -1,6 +1,7 @@
 package ru.job4j.tracker;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 @Data
 @Entity
 @Table(name = "items")
+@EqualsAndHashCode
 public class Item {
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
@@ -18,7 +20,7 @@ public class Item {
     private int id;
     private String name;
     private String description;
-
+    @EqualsAndHashCode.Exclude
     private LocalDateTime created = LocalDateTime.now();
 
     public Item() {
